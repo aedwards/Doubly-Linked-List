@@ -24,17 +24,19 @@ public:
 
 		/* Decided to use an easier nomenclature in naming our tempNode (similar to Singular Linked List version) to currentNode.
 		It eases the mental gymnastics when visualizing the traversal through the list when we want to keep track of our place
-		when inserting or deleting nodes.*/
+		when inserting or deleting nodes. The name positionNode is also a viable choice.*/
 		Node *currentNode;
 
-		newNode = new Node();
+		newNode = new Node();		//out brand new node that we'll be inserting
 
+		//Do not allow insertion if the the position is less than 0
 		if(position < 0) {
 			cout << "Cannot enter " << data << " into list." << endl;
 			cout << "Please enter a position larger than or equal to 0." << endl;
 			return;
 		}
 
+		//Exit immediately if node is invalid.
 		if(!newNode) {
 			cout << "Memory Error while allocating" << endl;
 			return;
