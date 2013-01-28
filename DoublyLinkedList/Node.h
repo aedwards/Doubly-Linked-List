@@ -1,6 +1,8 @@
 
 //Node class for Doubly Linked List implementation.
 
+//Andre Edwards
+//Custom Node Class for Doubly Linked lists
 class Node {
 
 

@@ -1,3 +1,4 @@
+//Andre Edwards
 //custom List class
 #include <iostream>
 using namespace std;
@@ -79,6 +80,109 @@ public:
 		}
 		
 	}
+
+	void DeleteNode(int position) {
+		
+		Node *currentNode, *tempNode;	//in this case, tempNode is just a placeholder variable to facilitate switching around variables
+
+		currentNode = head;
+		int currentPosition = 1;
+
+		//if the list is empty
+		if(currentNode == NULL) {
+			cout << "List is empty"<<endl;
+			return;
+		}
+
+		//deleting the head node
+		if(position == 1) {
+			head = head->Next();	//point the head node to the next element in the list so that it does not get deleted
+			if(currentNode != NULL) {
+				head->SetPrev(NULL);		//disassociate the first node from the list by having head node's prev pointer point to NULL.
+			}
+			
+			delete currentNode;		//completely deallocate currentNode and assign a nullptr to avoid dangling pointers and memory leaks
+			currentNode = nullptr;
+			return;
+		}
+
+		while((currentPosition < position) && (currentNode->Next() != NULL)) {
+			currentNode->SetNext(currentNode->Next());
+			currentPosition++;
+		}
+
+		//deleting the last node
+		if(currentNode->Next() == NULL) {
+			cout << "Deleting from end of list." << endl;
+			tempNode = currentNode->Prev();
+			tempNode->SetNext(NULL);
+			delete currentNode;
+			currentNode = nullptr;
+			return;
+		}
+
+	}
+
+
+	//Delete a node from the list based on the list item supplied by the user
+	void Delete(int data) {
+
+		Node *currentNode, *tempNode, *prevNode;	//initialize a pointer to the head node as a starting point
+
+		currentNode = head;
+		prevNode = head;
+
+		//no nodes
+		if(currentNode == NULL) {
+			cout << "List is empty." << endl;
+			return;
+		}
+		
+		
+		//trying to delete a non-existent node
+		if(currentNode->Data() != data) {
+			cout << "\nInvalid search: Item does not exit. Returning original, unaltered list." << endl;
+			return;
+		}
+
+		//deleting the head node
+		if(currentNode->Data() == data) {
+			head = head->Next();	//point the head node to the next element in the list so that it does not get deleted
+			if(currentNode != NULL) {
+				head->SetPrev(NULL);		//disassociate the first node from the list by having head node's prev pointer point to NULL.
+			}
+			
+			delete currentNode;		//completely deallocate currentNode and assign a nullptr to avoid dangling pointers and memory leaks
+			currentNode = nullptr;
+			return;
+		}
+		
+		//last node deletion
+		if(currentNode->Next() == NULL) {
+			tempNode = currentNode->Prev();
+			tempNode->SetNext(NULL);
+			delete currentNode;
+			currentNode = nullptr;
+		}
+		else {
+
+			//traverse through the nodes until we get a match
+			while(currentNode != NULL) {
+				if(currentNode->Data() == data) {
+					break;	
+				}
+				prevNode = currentNode;
+				currentNode = currentNode->Next();
+			}
+
+			//adjust the pointers, if matching data is found
+			prevNode->SetNext(currentNode->Next());
+
+			//delete the current node
+			currentNode = nullptr;
+		}
+	}
+
 
 
 	void PrintList() {
