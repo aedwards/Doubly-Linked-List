@@ -18,5 +18,13 @@
     <ClInclude Include="Node.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="DLList.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DoublyLinkedListTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
