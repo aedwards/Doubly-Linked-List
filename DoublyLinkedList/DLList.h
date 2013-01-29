@@ -134,17 +134,17 @@ public:
 
 		//no nodes
 		if(currentNode == NULL) {
-			cout << "List is empty." << endl;
+			cout << "List is empty. Or invalid search term" << endl;
 			return;
 		}
 		
 		
 		//trying to delete a non-existent node
-		if(currentNode->Data() != data) {
-			cout << "\nInvalid search: Item does not exit. Returning original, unaltered list." << endl;
+		if(currentNode->Next()->Data() != data) {
+			cout << "\n\n\nInvalid search: The item " << data << " does not exit.  Continuing remaing operations." << endl;
 			return;
 		}
-
+		
 		//deleting the head node
 		if(currentNode->Data() == data) {
 			head = head->Next();	//point the head node to the next element in the list so that it does not get deleted
@@ -156,6 +156,7 @@ public:
 			currentNode = nullptr;
 			return;
 		}
+
 		
 		//last node deletion
 		if(currentNode->Next() == NULL) {
@@ -181,6 +182,8 @@ public:
 			//delete the current node
 			currentNode = nullptr;
 		}
+
+		
 	}
 
 
@@ -202,10 +205,6 @@ public:
 		cout << currentNode->Data();
 		return;
 	}
-
-
-
-	
 
 
 };
