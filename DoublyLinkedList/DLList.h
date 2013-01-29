@@ -17,7 +17,34 @@ public:
 		head = NULL;	//initialize the default head position
 	}
 
-	
+	//append a node by data only
+	void AppendNode(int data) {
+
+		// Create a new node
+		Node* newNode = new Node();
+		newNode->SetData(data);
+		newNode->SetNext(NULL);
+
+		// Create a temp pointer
+		Node *tmp = head;
+
+		if ( tmp != NULL ) {
+			// Nodes already present in the list
+			// Parse to end of list
+			while ( tmp->Next() != NULL ) {
+				tmp = tmp->Next();
+			}
+
+			// Point the last node to the new node
+			tmp->SetNext(newNode);
+		}
+		else {
+			// First node in the list
+			head = newNode;
+		}
+	}
+
+	//append a node by data and position
 	void Append(int data, int position) {
 
 		int currentPosition = 1;
@@ -167,7 +194,7 @@ public:
 		}
 		else {
 
-			//traverse through the nodes until we get a match
+			//traverse through the nodes until we get a match (Intermediate node deletion)
 			while(currentNode != NULL) {
 				if(currentNode->Data() == data) {
 					break;	
@@ -186,6 +213,43 @@ public:
 		
 	}
 
+	int ListLength() {
+		Node *currentNode = head;
+		int count = 0;
+
+		while(currentNode != NULL) {
+			count++;
+			currentNode = currentNode->Next();
+		}
+		return count;
+	}
+
+
+	//Retrieve the head of a list.
+	//Is only valid AFTER a list has been created.
+	Node* Head() {
+
+		if(head == NULL) {
+			cout << "You must initialize a list with valid data before you can retrieve it's head.\nDoes NOT work on empty lists." << endl;
+		}
+		else {
+			Node* newHead;
+			newHead = head;
+			return newHead;
+		}
+	}
+
+	//Retrieve the head of a list.
+	//Is only valid AFTER a list has been created.
+	Node* Tail() {
+		
+		Node* tail = head;
+
+		while(tail->Next() != NULL) {
+			tail = tail->Next();
+		}
+		return tail;
+	}
 
 
 	void PrintList() {
@@ -205,6 +269,44 @@ public:
 		cout << currentNode->Data();
 		return;
 	}
+
+
+	/*SwapNodes and ReverseList are a work in progress*/
+	/*
+	//Simple swap function
+	void swapNodes(Node& headNode, Node& tailNode) {
+		Node temp = headNode;
+		headNode = tailNode;
+		tailNode = temp;
+	}
+	
+	//Reverse the list and return it
+	void ReverseList(DLList list, Node* head, Node* tail) {
+
+		
+		cout << "Before swap: \n" << head->Data() << endl;
+		cout << tail->Data() << endl;
+		swapNodes(*head,*tail);
+		cout << "After swap: \n" << head->Data() << endl;
+		cout << tail->Data() << endl;
+		
+		cout << list.ListLength();
+		
+		
+		
+		//divide and conquer for loop
+		for(int i = 0; i < list.ListLength()/2; i++) {
+			
+				swapNodes(*head, *tail);
+				head->SetNext(head->Next());
+				tail->SetNext(tail->Next());
+				//emptyList.AppendNode(head->Data());
+				//emptyList.AppendNode(tail->Data());
+			
+		}
+		//return emptyList;
+
+	}*/
 
 
 };
