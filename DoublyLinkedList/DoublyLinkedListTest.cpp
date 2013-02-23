@@ -14,12 +14,12 @@ int main() {
 	myList.Append(34,3);
 	myList.Append(76, 2);		//test for inserting between
 	myList.Append(45, 12);		//test for inserting past the ending bounds of the list
+	myList.Append(112, 3);
 	
 	cout <<"\n\n";
 	myList.PrintList();
 
-	myList.Delete(76);
-	myList.Delete(99);			//test for deleting non-existent data
+	myList.Delete(112);			
 	cout <<"\n\n";
 	myList.PrintList();
 

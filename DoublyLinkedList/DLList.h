@@ -55,7 +55,7 @@ public:
 		when inserting or deleting nodes. The name positionNode is also a viable choice.*/
 		Node *currentNode;
 
-		newNode = new Node();		//out brand new node that we'll be inserting
+		newNode = new Node();		//new node that we'll be inserting
 
 		//Do not allow insertion if the the position is less than 0
 		if(position < 0) {
@@ -89,6 +89,10 @@ public:
 		}
 
 		if(currentNode->Next() == NULL) {
+			if(position > currentPosition+1) {
+				cout << "Invalid position." << endl;
+				return;
+			}
 			cout << "Inserting node at the last." << endl;
 			newNode->SetNext(currentNode->Next());	//newNode's next pointer is set to NULL; as any end node's next pointer should be.
 			newNode->SetPrev(currentNode);			//newNode's previous pointer points to the currentNode we inserted AFTER, at the end of the list.
@@ -101,9 +105,8 @@ public:
 			cout << "Inserting node at position: " << position << endl;
 			newNode->SetNext(currentNode->Next());
 			newNode->SetPrev(currentNode);
-			currentNode->next->prev = newNode;
+			currentNode->Next()->SetPrev(newNode);
 			currentNode->SetNext(newNode);
-			return;
 		}
 		
 	}
@@ -157,40 +160,30 @@ public:
 		Node *currentNode, *tempNode, *prevNode;	//initialize a pointer to the head node as a starting point
 
 		currentNode = head;
-		prevNode = head;
+		prevNode = NULL;
 
 		//no nodes
 		if(currentNode == NULL) {
-			cout << "List is empty. Or invalid search term" << endl;
+			cout << "List is empty." << endl;
 			return;
 		}
 		
 		
 		//trying to delete a non-existent node
-		if(currentNode->Next()->Data() != data) {
-			cout << "\n\n\nInvalid search: The item " << data << " does not exit.  Continuing remaing operations." << endl;
-			return;
-		}
+		
 		
 		//deleting the head node
 		if(currentNode->Data() == data) {
-			head = head->Next();	//point the head node to the next element in the list so that it does not get deleted
+			prevNode = currentNode;
+			currentNode = currentNode->Next();
+			head = currentNode;		//point the head node to the next element in the list so that it does not get deleted
 			if(currentNode != NULL) {
-				head->SetPrev(NULL);		//disassociate the first node from the list by having head node's prev pointer point to NULL.
+				currentNode->SetPrev(NULL);		//disassociate the first node from the list by having head node's prev pointer point to NULL.
 			}
 			
-			delete currentNode;		//completely deallocate currentNode and assign a nullptr to avoid dangling pointers and memory leaks
-			currentNode = nullptr;
+			delete prevNode;		//completely deallocate currentNode and assign a nullptr to avoid dangling pointers and memory leaks
+			prevNode = nullptr;
 			return;
-		}
-
-		
-		//last node deletion
-		if(currentNode->Next() == NULL) {
-			tempNode = currentNode->Prev();
-			tempNode->SetNext(NULL);
-			delete currentNode;
-			currentNode = nullptr;
 		}
 		else {
 
@@ -203,11 +196,17 @@ public:
 				currentNode = currentNode->Next();
 			}
 
+			if(currentNode->Data() != data) {
+				cout << "\n\n\nInvalid search: The item " << data << " does not exit.  Continuing remaing operations." << endl;
+				return;
+			}
+
 			//adjust the pointers, if matching data is found
 			prevNode->SetNext(currentNode->Next());
+			currentNode->Next()->SetPrev(prevNode);
 
 			//delete the current node
-			currentNode = nullptr;
+			delete currentNode;
 		}
 
 		
