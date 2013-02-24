@@ -111,47 +111,6 @@ public:
 		
 	}
 
-	void DeleteNode(int position) {
-		
-		Node *currentNode, *tempNode;	//in this case, tempNode is just a placeholder variable to facilitate switching around variables
-
-		currentNode = head;
-		int currentPosition = 1;
-
-		//if the list is empty
-		if(currentNode == NULL) {
-			cout << "List is empty"<<endl;
-			return;
-		}
-
-		//deleting the head node
-		if(position == 1) {
-			head = head->Next();	//point the head node to the next element in the list so that it does not get deleted
-			if(currentNode != NULL) {
-				head->SetPrev(NULL);		//disassociate the first node from the list by having head node's prev pointer point to NULL.
-			}
-			
-			delete currentNode;		//completely deallocate currentNode and assign a nullptr to avoid dangling pointers and memory leaks
-			currentNode = nullptr;
-			return;
-		}
-
-		while((currentPosition < position) && (currentNode->Next() != NULL)) {
-			currentNode->SetNext(currentNode->Next());
-			currentPosition++;
-		}
-
-		//deleting the last node
-		if(currentNode->Next() == NULL) {
-			cout << "Deleting from end of list." << endl;
-			tempNode = currentNode->Prev();
-			tempNode->SetNext(NULL);
-			delete currentNode;
-			currentNode = nullptr;
-			return;
-		}
-
-	}
 
 
 	//Delete a node from the list based on the list item supplied by the user

@@ -19,7 +19,7 @@ int main() {
 	cout <<"\n\n";
 	myList.PrintList();
 
-	myList.Delete(112);			
+	myList.DeleteNode(2);			
 	cout <<"\n\n";
 	myList.PrintList();
 
