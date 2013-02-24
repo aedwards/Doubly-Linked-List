@@ -5,13 +5,14 @@
 //Custom Node Class for Doubly Linked lists
 class Node {
 
-
-	
-public:
-
+private:
 	int data;
 	Node* next;
 	Node* prev;
+	
+public:
+
+	
 
 	//default ctor
 	Node() {

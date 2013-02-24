@@ -6,9 +6,8 @@ using namespace std;
 
 class DLList { 
 
-
+private:
 	Node *head;
-	Node *prev;
 
 public:
 	
