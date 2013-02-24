@@ -14,12 +14,12 @@ int main() {
 	myList.Append(34,3);
 	myList.Append(76, 2);		//test for inserting between
 	myList.Append(45, 12);		//test for inserting past the ending bounds of the list
-	myList.Append(112, 3);
+	myList.Append(112, 3);		//test for inserting/overriding a previous location.
 	
 	cout <<"\n\n";
 	myList.PrintList();
 
-	myList.DeleteNode(2);			
+	myList.Delete(34);			
 	cout <<"\n\n";
 	myList.PrintList();
 

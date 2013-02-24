@@ -151,10 +151,19 @@ public:
 				if(currentNode->Data() == data) {
 					break;	
 				}
+				
 				prevNode = currentNode;
 				currentNode = currentNode->Next();
 			}
 
+			//deleteing the tail node
+			if(currentNode->Data() == data && currentNode->Next() == NULL) {
+				prevNode->SetNext(NULL);
+				delete currentNode;
+				return;
+			}
+
+			//if supplied data is still not found after while loop traversal.
 			if(currentNode->Data() != data) {
 				cout << "\n\n\nInvalid search: The item " << data << " does not exit.  Continuing remaing operations." << endl;
 				return;
